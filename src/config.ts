@@ -1,4 +1,5 @@
 import type { Site, SocialObjects } from "./types";
+import type { GiscusProps } from "@giscus/react";
 
 export const SITE: Site = {
   website: "https://blog.samyr.dev/", // replace this with your deployed domain
@@ -147,3 +148,16 @@ export const SOCIALS: SocialObjects = [
     active: false,
   },
 ];
+
+export const GISCUS: GiscusProps = {
+  repo: "SamyrOR/personal-blog",
+  repoId: "R_kgDOM7_VGw",
+  category: "Announcements",
+  categoryId: "DIC_kwDOM7_VG84CjOGi",
+  mapping: "pathname",
+  reactionsEnabled: "1",
+  emitMetadata: "0",
+  inputPosition: "top",
+  lang: "en",
+  loading: "lazy",
+};
