@@ -9,6 +9,7 @@ import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
 import Comments from "@components/Comments";
+import Tocbot from "@components/Tocbot";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -89,6 +90,11 @@ const nextPost =
     <article id="article" class="prose mx-auto mt-8 max-w-3xl">
       <Content />
     </article>
+
+    <aside id="floating-sidebar">
+      <Tocbot client:only="react" />
+      <nav id="tocbot"></nav>
+    </aside>
 
     <ul class="my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
@@ -193,6 +199,30 @@ const nextPost =
     @apply text-2xl font-semibold text-skin-accent;
   }
 </style>
+<style is:global>
+  @import "tocbot/dist/tocbot.css";
+  #floating-sidebar {
+    @apply fixed top-28;
+    transform: translateX(0);
+    right: calc(((100% - 52rem) / 2));
+    transform: translateX(100%);
+    width: 18%;
+    #tocbot {
+      .toc-list {
+        position: relative;
+        overflow: hidden;
+      }
+      .toc-list-item {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  .is-active-link::before {
+    @apply !bg-skin-accent;
+  }
+</style>
 
 <script is:inline data-astro-rerun>
   /** Create a progress indicator
@@ -237,7 +267,7 @@ const nextPost =
   updateScrollProgress();
 
   /** Attaches links to headings in the document,
-   *  allowing sharing of sections easily */
+   *  allowing sharing of sections easily 
   function addHeadingLinks() {
     const headings = Array.from(
       document.querySelectorAll("h2, h3, h4, h5, h6")
@@ -257,6 +287,7 @@ const nextPost =
     }
   }
   addHeadingLinks();
+  */
 
   /** Attaches copy buttons to code blocks in the document,
    * allowing users to copy code easily. */

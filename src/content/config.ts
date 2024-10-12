@@ -1,7 +1,6 @@
 import { SITE } from "@config";
 import { glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
-import readingTime from "reading-time";
 
 const blog = defineCollection({
   type: "content_layer",
@@ -24,6 +23,7 @@ const blog = defineCollection({
       description: z.string(),
       canonicalURL: z.string().optional(),
       readingTime: z.string().optional(),
+      collapseDepth: z.string().optional(),
     }),
 });
 
