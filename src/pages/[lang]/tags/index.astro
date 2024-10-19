@@ -7,10 +7,20 @@ import Main from "@layouts/Main.astro";
 import Tag from "@components/Tag.astro";
 import getUniqueTags from "@utils/getUniqueTags";
 import { SITE } from "@config";
+import { LANGUAGES_KEYS } from "i18n/utils";
 
-const posts = await getCollection("blog");
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return LANGUAGES_KEYS.map(lang => {
+    let tags = getUniqueTags(posts, lang);
+    return {
+      params: { lang },
+      props: { tags },
+    };
+  });
+}
 
-let tags = getUniqueTags(posts);
+const { tags } = Astro.props;
 ---
 
 <Layout title={`Tags | ${SITE.title}`}>

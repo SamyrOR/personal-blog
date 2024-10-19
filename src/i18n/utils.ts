@@ -2,19 +2,19 @@ import { ui } from "./ui";
 
 export const LANGUAGES = {
   en: "English",
-  pt: "Portuges",
+  "pt-br": "Portuges",
 };
 
-export const LANGUAGES_KEYS = Object.keys(LANGUAGES) as UiType[];
+export const LANGUAGES_KEYS: UiType[] = ["pt-br", "en"];
 
-export const DEFAULT_LANG = "pt";
+export const DEFAULT_LANG = "pt-br";
 
 export type UiType = keyof typeof ui;
 
 export function getLangFromUrl(url: URL): string {
   const langCodeMatch = url.pathname.match(/\/([a-z]{2}-?[a-z]{0,2})\//);
   console.log(langCodeMatch ? langCodeMatch[1] : DEFAULT_LANG);
-  return langCodeMatch ? langCodeMatch[1] : DEFAULT_LANG;
+  return langCodeMatch ? langCodeMatch[1] : (DEFAULT_LANG as UiType);
 }
 
 export function useTranslations(lang?: UiType) {

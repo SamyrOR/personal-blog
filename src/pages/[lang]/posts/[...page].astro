@@ -1,12 +1,13 @@
 ---
 import { SITE } from "@config";
 import Posts from "@layouts/Posts.astro";
-import type { GetStaticPaths } from "astro";
+
+import type { GetStaticPathsOptions } from "astro";
 import { getCollection } from "astro:content";
 import getSortedPosts from "@utils/getSortedPosts";
-import { getLangFromUrl, LANGUAGES_KEYS } from "i18n/utils";
+import { LANGUAGES_KEYS } from "i18n/utils";
 
-export async function getStaticPaths({ paginate }) {
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
 
   let pages: any = [];
@@ -15,13 +16,14 @@ export async function getStaticPaths({ paginate }) {
     const paginatedPages = paginate(localizedPosts, {
       pageSize: SITE.postPerPage,
       params: { lang: lang },
-    }) satisfies GetStaticPaths;
+    });
     pages = [...pages, ...paginatedPages];
   }
   return pages;
 }
 
 const { page } = Astro.props;
+const { lang } = Astro.params;
 ---
 
-<Posts {page} />
+<Posts {page} {lang} />

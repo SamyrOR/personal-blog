@@ -8,7 +8,7 @@ export interface Props {
   lang: string;
 }
 
-const { activeNav } = Astro.props;
+const { activeNav, lang } = Astro.props;
 ---
 
 <header>
@@ -57,17 +57,26 @@ const { activeNav } = Astro.props;
         </button>
         <ul id="menu-items" class="display-none sm:flex">
           <li>
-            <a href="posts/" class={activeNav === "posts" ? "active" : ""}>
+            <a
+              href={`/${lang}/posts/`}
+              class={activeNav === "posts" ? "active" : ""}
+            >
               Posts
             </a>
           </li>
           <li>
-            <a href="tags/" class={activeNav === "tags" ? "active" : ""}>
+            <a
+              href={`/${lang}/tags/`}
+              class={activeNav === "tags" ? "active" : ""}
+            >
               Tags
             </a>
           </li>
           <li>
-            <a href="about/" class={activeNav === "about" ? "active" : ""}>
+            <a
+              href={`/${lang}/tags/`}
+              class={activeNav === "about" ? "active" : ""}
+            >
               About
             </a>
           </li>

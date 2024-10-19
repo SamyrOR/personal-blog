@@ -43,4 +43,8 @@ export default defineConfig({
   experimental: {
     contentLayer: true,
   },
+  i18n: {
+    defaultLocale: "pt-br",
+    locales: ["en", "pt-br"],
+  },
 });
