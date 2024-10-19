@@ -16,6 +16,11 @@ export function getLangFromUrl(url: URL): string {
   console.log(langCodeMatch ? langCodeMatch[1] : DEFAULT_LANG);
   return langCodeMatch ? langCodeMatch[1] : (DEFAULT_LANG as UiType);
 }
+export function getLangFromLocation(url: string): string {
+  const langCodeMatch = url.match(/\/([a-z]{2}-?[a-z]{0,2})\//);
+  console.log(langCodeMatch ? langCodeMatch[1] : DEFAULT_LANG);
+  return langCodeMatch ? langCodeMatch[1] : (DEFAULT_LANG as UiType);
+}
 
 export function useTranslations(lang?: UiType) {
   return function t(

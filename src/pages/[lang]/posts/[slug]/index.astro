@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import PostDetails from "@layouts/PostDetails.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import getPostsWithRT from "@utils/getPostsWithRT";
+import { DEFAULT_LANG } from "i18n/utils";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -14,7 +15,7 @@ export async function getStaticPaths() {
   const postsWithRT = await getPostsWithRT(posts);
 
   const postResult = postsWithRT.map(post => ({
-    params: { lang: post.data.lang || "pt", slug: post.slug },
+    params: { lang: post.data.lang || DEFAULT_LANG, slug: post.slug },
     props: { post },
   }));
 
@@ -24,7 +25,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 
 const posts = await getCollection("blog");
-const sortedPosts = getSortedPosts(posts, post.data?.lang || "pt");
+const sortedPosts = getSortedPosts(posts, post.data?.lang || DEFAULT_LANG);
 ---
 
 <PostDetails post={post} posts={sortedPosts} />

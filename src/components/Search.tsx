@@ -2,6 +2,7 @@ import Fuse from "fuse.js";
 import { useEffect, useRef, useState, useMemo, type FormEvent } from "react";
 import Card from "@components/Card";
 import type { CollectionEntry } from "astro:content";
+import { getLangFromLocation } from "i18n/utils";
 
 export type SearchItem = {
   title: string;
@@ -20,6 +21,7 @@ interface SearchResult {
 }
 
 export default function SearchBar({ searchList }: Props) {
+  const lang = getLangFromLocation(window.location.href);
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputVal, setInputVal] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(
@@ -49,7 +51,7 @@ export default function SearchBar({ searchList }: Props) {
     if (searchStr) setInputVal(searchStr);
 
     // put focus cursor at the end of the string
-    setTimeout(function () {
+    setTimeout(function() {
       inputRef.current!.selectionStart = inputRef.current!.selectionEnd =
         searchStr?.length || 0;
     }, 50);
@@ -109,7 +111,7 @@ export default function SearchBar({ searchList }: Props) {
         {searchResults &&
           searchResults.map(({ item, refIndex }) => (
             <Card
-              href={`/posts/${item.slug}/`}
+              href={`/${lang}/posts/${item.slug}/`}
               frontmatter={item.data}
               key={`${refIndex}-${item.slug}`}
             />

@@ -90,7 +90,7 @@ const { lang } = Astro.params;
             <ul>
               {featuredPosts.map(({ data, slug }) => (
                 <Card
-                  href={`posts/${slug}/`}
+                  href={`posts/${slug}`}
                   frontmatter={data}
                   secHeading={false}
                 />

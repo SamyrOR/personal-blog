@@ -7,10 +7,19 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import SearchBar from "@components/Search";
 import getSortedPosts from "@utils/getSortedPosts";
+import { getLangFromUrl, LANGUAGES_KEYS } from "i18n/utils";
 
 // Retrieve all published articles
 const posts = await getCollection("blog", ({ data }) => !data.draft);
-const sortedPosts = getSortedPosts(posts);
+const lang = getLangFromUrl(Astro.url);
+const sortedPosts = getSortedPosts(posts, lang);
+export async function getStaticPaths() {
+  return LANGUAGES_KEYS.map(lang => {
+    return {
+      params: { lang },
+    };
+  });
+}
 
 // List of items to search in
 const searchList = sortedPosts.map(({ data, slug }) => ({
@@ -22,9 +31,9 @@ const searchList = sortedPosts.map(({ data, slug }) => ({
 ---
 
 <Layout title={`Search | ${SITE.title}`}>
-  <Header activeNav="search" />
+  <Header activeNav="search" {lang} />
   <Main pageTitle="Search" pageDesc="Search any article ...">
-    <SearchBar client:load searchList={searchList} />
+    <SearchBar client:only searchList={searchList} />
   </Main>
   <Footer />
 </Layout>
