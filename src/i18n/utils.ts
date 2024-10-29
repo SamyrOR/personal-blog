@@ -11,15 +11,19 @@ export const DEFAULT_LANG = "pt-br";
 
 export type UiType = keyof typeof ui;
 
-export function getLangFromUrl(url: URL): string {
+export function getLangFromUrl(url: URL) {
   const langCodeMatch = url.pathname.match(/\/([a-z]{2}-?[a-z]{0,2})\//);
   console.log(langCodeMatch ? langCodeMatch[1] : DEFAULT_LANG);
-  return langCodeMatch ? langCodeMatch[1] : (DEFAULT_LANG as UiType);
+  return langCodeMatch
+    ? (langCodeMatch[1] as UiType)
+    : (DEFAULT_LANG as UiType);
 }
-export function getLangFromLocation(url: string): string {
+export function getLangFromLocation(url: string) {
   const langCodeMatch = url.match(/\/([a-z]{2}-?[a-z]{0,2})\//);
   console.log(langCodeMatch ? langCodeMatch[1] : DEFAULT_LANG);
-  return langCodeMatch ? langCodeMatch[1] : (DEFAULT_LANG as UiType);
+  return langCodeMatch
+    ? (langCodeMatch[1] as UiType)
+    : (DEFAULT_LANG as UiType);
 }
 
 export function useTranslations(lang?: UiType) {

@@ -5,25 +5,31 @@ import getUniqueTags from "@utils/getUniqueTags";
 import getPostsByTag from "@utils/getPostsByTag";
 import type { GetStaticPathsOptions } from "astro";
 import { SITE } from "@config";
+import { LANGUAGES_KEYS } from "i18n/utils";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const posts = await getCollection("blog");
-  const tags = getUniqueTags(posts);
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
 
-  return tags.flatMap(({ tag, tagName }) => {
-    const tagPosts = getPostsByTag(posts, tag);
-
-    return paginate(tagPosts, {
-      params: { tag },
-      props: { tagName },
-      pageSize: SITE.postPerPage,
+  let pages: any = [];
+  for (let lang of LANGUAGES_KEYS) {
+    let tags = getUniqueTags(posts, lang);
+    let tagPages = tags.flatMap(({ tag, tagName }) => {
+      const tagPosts = getPostsByTag(posts, tag, lang);
+      return paginate(tagPosts, {
+        params: { tag, lang },
+        props: { tagName },
+        pageSize: SITE.postPerPage,
+      });
     });
-  });
+    pages = [...pages, ...tagPages];
+  }
+
+  return pages;
 }
 
 const params = Astro.params;
-const { tag } = params;
+const { tag, lang } = params;
 const { page, tagName } = Astro.props;
 ---
 
-<TagPosts {page} {tag} {tagName} />
+<TagPosts {page} {tag} {tagName} {lang} />

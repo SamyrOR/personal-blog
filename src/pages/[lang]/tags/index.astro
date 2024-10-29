@@ -21,13 +21,14 @@ export async function getStaticPaths() {
 }
 
 const { tags } = Astro.props;
+const { lang } = Astro.params;
 ---
 
 <Layout title={`Tags | ${SITE.title}`}>
-  <Header activeNav="tags" />
-  <Main pageTitle="Tags" pageDesc="All the tags used in posts.">
+  <Header activeNav="tags" {lang} />
+  <Main pageTitle="Tags" pageDesc="All the tags used in posts." {lang}>
     <ul>
-      {tags.map(({ tag }) => <Tag {tag} size="lg" />)}
+      {tags.map(({ tag }) => <Tag {tag} size="lg" {lang} />)}
     </ul>
   </Main>
   <Footer />
