@@ -158,6 +158,5 @@ export const GISCUS: GiscusProps = {
   reactionsEnabled: "1",
   emitMetadata: "0",
   inputPosition: "top",
-  lang: "en",
   loading: "lazy",
 };

@@ -19,7 +19,7 @@ export interface Props {
 }
 
 const { post, posts, lang } = Astro.props;
-
+const url = Astro.url.href;
 const {
   title,
   author,
@@ -88,6 +88,7 @@ const nextPost =
       size="lg"
       className="my-2"
       readingTime={readingTime}
+      lang={lang}
     />
     <article id="article" class="prose mx-auto mt-8 max-w-3xl">
       <Content />
@@ -117,12 +118,12 @@ const nextPost =
         <span>Back to Top</span>
       </button>
 
-      <ShareLinks />
+      <ShareLinks {lang} />
     </div>
 
     <hr class="my-6 border-dashed" />
     <!-- Giscus script tag -->
-    <Comments client:only="react" />
+    <Comments lang={lang} client:only="react" />
 
     <hr class="my-6 border-dashed" />
 
@@ -190,7 +191,7 @@ const nextPost =
       }
     </div>
   </main>
-  <Footer />
+  <Footer {lang} />
 </Layout>
 
 <style>

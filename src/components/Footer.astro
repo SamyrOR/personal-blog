@@ -1,4 +1,5 @@
 ---
+import type { UiType } from "i18n/utils";
 import Hr from "./Hr.astro";
 import Socials from "./Socials.astro";
 
@@ -6,9 +7,10 @@ const currentYear = new Date().getFullYear();
 
 export interface Props {
   noMarginTop?: boolean;
+  lang: UiType;
 }
 
-const { noMarginTop = false } = Astro.props;
+const { noMarginTop = false, lang } = Astro.props;
 ---
 
 <footer class={`${noMarginTop ? "" : "mt-auto"}`}>

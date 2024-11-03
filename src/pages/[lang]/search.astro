@@ -7,7 +7,7 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import SearchBar from "@components/Search";
 import getSortedPosts from "@utils/getSortedPosts";
-import { getLangFromUrl, LANGUAGES_KEYS } from "i18n/utils";
+import { getLangFromUrl, LANGUAGES_KEYS, useTranslations } from "i18n/utils";
 
 // Retrieve all published articles
 const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -28,12 +28,13 @@ const searchList = sortedPosts.map(({ data, slug }) => ({
   data,
   slug,
 }));
+const t = useTranslations(lang);
 ---
 
 <Layout title={`Search | ${SITE.title}`}>
   <Header activeNav="search" {lang} />
-  <Main pageTitle="Search" pageDesc="Search any article ..." {lang}>
-    <SearchBar client:only searchList={searchList} />
+  <Main pageTitle={t("search.title")} pageDesc="Search any article ..." {lang}>
+    <SearchBar client:only searchList={searchList} {lang} />
   </Main>
-  <Footer />
+  <Footer {lang} />
 </Layout>

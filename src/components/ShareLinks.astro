@@ -1,8 +1,15 @@
 ---
+import type { UiType } from "i18n/utils";
 import LinkButton from "./LinkButton.astro";
 import socialIcons from "@assets/socialIcons";
 
 const URL = Astro.url;
+
+export interface Props {
+  lang: UiType;
+}
+
+const { lang } = Astro.props;
 
 const shareLinks = [
   {

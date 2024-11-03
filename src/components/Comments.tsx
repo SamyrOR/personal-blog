@@ -1,16 +1,20 @@
-import Giscus, { type Theme } from "@giscus/react";
 import { GISCUS } from "@config";
+import Giscus, { type Theme } from "@giscus/react";
+import type { UiType } from "i18n/utils";
 import { useEffect, useState } from "react";
 
 interface CommentsProps {
   lightTheme?: Theme;
   darkTheme?: Theme;
+  lang: UiType;
 }
 
 export default function Comments({
   lightTheme = "light",
   darkTheme = "dark",
+  lang,
 }: CommentsProps) {
+  let giscusLang = lang == "pt-br" ? "pt" : "en";
   const [theme, setTheme] = useState(() => {
     const currentTheme = localStorage.getItem("theme");
     const browserTheme = window.matchMedia("(prefers-color-scheme: dark)")
@@ -43,9 +47,29 @@ export default function Comments({
     return () => themeButton?.removeEventListener("click", handleClick);
   }, []);
 
+  useEffect(() => {
+    const langSelectorButton = document.querySelector(
+      ".lang-selector"
+    ) as HTMLSelectElement;
+    const handleChange = () => {
+      // if (langSelectorButton?.nodeValue == "pt-br") {
+      // }
+      for (let lang of Array.from(langSelectorButton?.options))
+        console.log(langSelectorButton);
+    };
+
+    langSelectorButton?.addEventListener("change", handleChange);
+
+    return () => langSelectorButton?.removeEventListener("click", handleChange);
+  }, []);
+
   return (
     <div className="mt-8">
-      <Giscus theme={theme === "light" ? lightTheme : darkTheme} {...GISCUS} />
+      <Giscus
+        theme={theme === "light" ? lightTheme : darkTheme}
+        lang={giscusLang}
+        {...GISCUS}
+      />
     </div>
   );
 }
