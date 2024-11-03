@@ -1,15 +1,18 @@
 ---
 import Breadcrumbs from "@components/Breadcrumbs.astro";
+import type { UiType } from "i18n/utils";
 
 interface StringTitleProp {
   pageTitle: string;
   pageDesc?: string;
+  lang: UiType;
 }
 
 interface ArrayTitleProp {
   pageTitle: [string, string];
   titleTransition: string;
   pageDesc?: string;
+  lang: UiType;
 }
 
 export type Props = StringTitleProp | ArrayTitleProp;
@@ -17,7 +20,7 @@ export type Props = StringTitleProp | ArrayTitleProp;
 const { props } = Astro;
 ---
 
-<Breadcrumbs />
+<Breadcrumbs lang={props.lang} />
 <main id="main-content">
   {
     "titleTransition" in props ? (
