@@ -39,7 +39,7 @@ const { lang } = Astro.params;
       <h1>{t("site.title")}</h1>
       <a
         target="_blank"
-        href="/rss.xml"
+        href=`/${lang}/rss.xml`
         class="rss-link"
         aria-label="rss feed"
         title="RSS Feed"
@@ -90,9 +90,10 @@ const { lang } = Astro.params;
             <ul>
               {featuredPosts.map(({ data, slug }) => (
                 <Card
-                  href={`posts/${slug}`}
+                  href={`/${lang}/posts/${slug}`}
                   frontmatter={data}
                   secHeading={false}
+                  {lang}
                 />
               ))}
             </ul>
@@ -111,9 +112,10 @@ const { lang } = Astro.params;
               ({ data, slug }, index) =>
                 index < SITE.postPerIndex && (
                   <Card
-                    href={`posts/${slug}/`}
+                    href={`/${lang}/posts/${slug}/`}
                     frontmatter={data}
                     secHeading={false}
+                    {lang}
                   />
                 )
             )}
@@ -134,7 +136,7 @@ const { lang } = Astro.params;
     </div>
   </main>
 
-  <Footer />
+  <Footer {lang} />
 </Layout>
 
 <style>
