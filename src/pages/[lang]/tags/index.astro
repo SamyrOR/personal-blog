@@ -31,5 +31,5 @@ const { lang } = Astro.params;
       {tags.map(({ tag }) => <Tag {tag} size="lg" {lang} />)}
     </ul>
   </Main>
-  <Footer />
+  <Footer {lang} />
 </Layout>

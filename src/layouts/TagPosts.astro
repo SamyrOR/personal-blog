@@ -32,13 +32,13 @@ const { page, tag, tagName, lang } = Astro.props;
     <ul>
       {
         page.data.map(({ data, slug }) => (
-          <Card href={`/${lang}/posts/${slug}/`} frontmatter={data} />
+          <Card {lang} href={`/${lang}/posts/${slug}/`} frontmatter={data} />
         ))
       }
     </ul>
   </Main>
 
-  <Pagination {page} />
+  <Pagination {lang} {page} />
 
-  <Footer noMarginTop={page.lastPage > 1} />
+  <Footer {lang} noMarginTop={page.lastPage > 1} />
 </Layout>

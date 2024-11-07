@@ -47,22 +47,6 @@ export default function Comments({
     return () => themeButton?.removeEventListener("click", handleClick);
   }, []);
 
-  useEffect(() => {
-    const langSelectorButton = document.querySelector(
-      ".lang-selector"
-    ) as HTMLSelectElement;
-    const handleChange = () => {
-      // if (langSelectorButton?.nodeValue == "pt-br") {
-      // }
-      for (let lang of Array.from(langSelectorButton?.options))
-        console.log(langSelectorButton);
-    };
-
-    langSelectorButton?.addEventListener("change", handleChange);
-
-    return () => langSelectorButton?.removeEventListener("click", handleChange);
-  }, []);
-
   return (
     <div className="mt-8">
       <Giscus
