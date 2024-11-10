@@ -1,5 +1,5 @@
 ---
-import type { UiType } from "i18n/utils";
+import { useTranslations, type UiType } from "i18n/utils";
 import Hr from "./Hr.astro";
 import Socials from "./Socials.astro";
 
@@ -11,6 +11,7 @@ export interface Props {
 }
 
 const { noMarginTop = false, lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <footer class={`${noMarginTop ? "" : "mt-auto"}`}>
@@ -20,7 +21,7 @@ const { noMarginTop = false, lang } = Astro.props;
     <div class="copyright-wrapper">
       <span>Copyright &#169; {currentYear}</span>
       <span class="separator">&nbsp;|&nbsp;</span>
-      <span>All rights reserved.</span>
+      <span>{t("footer.rights")}</span>
     </div>
   </div>
 </footer>
