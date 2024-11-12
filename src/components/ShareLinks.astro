@@ -1,5 +1,5 @@
 ---
-import type { UiType } from "i18n/utils";
+import { useTranslations, type UiType } from "i18n/utils";
 import LinkButton from "./LinkButton.astro";
 import socialIcons from "@assets/socialIcons";
 
@@ -10,6 +10,7 @@ export interface Props {
 }
 
 const { lang } = Astro.props;
+const t = useTranslations(lang);
 
 const shareLinks = [
   {
@@ -46,7 +47,7 @@ const shareLinks = [
 ---
 
 <div class={`social-icons`}>
-  <span class="italic">Share this post on:</span>
+  <span class="italic">{t("shareLinks.share")}</span>
   <div class="text-center">
     {
       shareLinks.map(social => (

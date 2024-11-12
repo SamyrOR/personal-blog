@@ -52,7 +52,7 @@ export default function SearchBar({ searchList }: Props) {
     if (searchStr) setInputVal(searchStr);
 
     // put focus cursor at the end of the string
-    setTimeout(function () {
+    setTimeout(function() {
       inputRef.current!.selectionStart = inputRef.current!.selectionEnd =
         searchStr?.length || 0;
     }, 50);
@@ -101,11 +101,11 @@ export default function SearchBar({ searchList }: Props) {
 
       {inputVal.length > 1 && (
         <div className="mt-8">
-          Found {searchResults?.length}
+          {t("search.found")} {searchResults?.length}
           {searchResults?.length && searchResults?.length === 1
-            ? " result"
-            : " results"}{" "}
-          for '{inputVal}'
+            ? ` ${t("search.result")}`
+            : ` ${t("search.result")}`}{" "}
+          {t("search.for")} '{inputVal}'
         </div>
       )}
 

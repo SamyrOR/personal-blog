@@ -10,7 +10,7 @@ import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
 import Comments from "@components/Comments";
 import Tocbot from "@components/Tocbot";
-import type { UiType } from "i18n/utils";
+import { useTranslations, type UiType } from "i18n/utils";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -62,6 +62,7 @@ const currentPostIndex = allPosts.findIndex(a => a.slug === post.slug);
 const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 const nextPost =
   currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
+const t = useTranslations(lang);
 ---
 
 <Layout {...layoutProps}>
@@ -76,7 +77,7 @@ const nextPost =
         ><path
           d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
         ></path>
-      </svg><span>Go back</span>
+      </svg><span>{t("postDetails.back")}</span>
     </button>
   </div>
   <main id="main-content">
@@ -114,7 +115,7 @@ const nextPost =
             d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
           ></path>
         </svg>
-        <span>Back to Top</span>
+        <span>{t("postDetails.backTop")}</span>
       </button>
 
       <ShareLinks {lang} />
@@ -152,7 +153,7 @@ const nextPost =
               </>
             </svg>
             <div>
-              <span>Previous Post</span>
+              <span>{t("postDetails.previous")}</span>
               <div class="text-sm text-skin-accent/85">{prevPost.title}</div>
             </div>
           </a>
@@ -165,7 +166,7 @@ const nextPost =
             class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
           >
             <div>
-              <span>Next Post</span>
+              <span>{t("postDetails.next")}</span>
               <div class="text-sm text-skin-accent/85">{nextPost.title}</div>
             </div>
             <svg

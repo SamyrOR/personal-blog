@@ -35,10 +35,7 @@ const {
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
-  lang,
 } = Astro.props;
-
-const t = useTranslations(lang as UiType);
 
 const socialImageURL = new URL(
   ogImage ?? SITE.ogImage ?? "og.png",

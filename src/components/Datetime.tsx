@@ -9,13 +9,13 @@ import {
 interface DatetimesProps {
   pubDatetime: string | Date;
   modDatetime: string | Date | undefined | null;
+  lang: UiType;
 }
 
 interface Props extends DatetimesProps {
   size?: "sm" | "lg";
   className?: string;
   readingTime?: string;
-  lang: UiType;
 }
 
 export default function Datetime({
@@ -34,9 +34,8 @@ export default function Datetime({
       <div className={`items-cente flex`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className={`${
-            size === "sm" ? "scale-90" : "scale-100"
-          } inline-block h-6 w-6 min-w-[1.375rem] fill-skin-base`}
+          className={`${size === "sm" ? "scale-90" : "scale-100"
+            } inline-block h-6 w-6 min-w-[1.375rem] fill-skin-base`}
           aria-hidden="true"
         >
           <path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"></path>
@@ -47,12 +46,13 @@ export default function Datetime({
             {t("datetime.updated")}
           </span>
         ) : (
-          <span className="sr-only">Published:</span>
+          <span className="sr-only">{t("datetime.published")}</span>
         )}
         <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
           <FormattedDatetime
             pubDatetime={pubDatetime}
             modDatetime={modDatetime}
+            lang={lang}
           />
         </span>
       </div>
@@ -61,18 +61,23 @@ export default function Datetime({
   );
 }
 
-const FormattedDatetime = ({ pubDatetime, modDatetime }: DatetimesProps) => {
+const FormattedDatetime = ({
+  pubDatetime,
+  modDatetime,
+  lang,
+}: DatetimesProps) => {
+  let langTag = lang == "pt-br" ? "pt-BR" : "en-US";
   const myDatetime = new Date(
     modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime
   );
 
-  const date = myDatetime.toLocaleDateString(LOCALE.langTag, {
+  const date = myDatetime.toLocaleDateString(langTag, {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
 
-  const time = myDatetime.toLocaleTimeString(LOCALE.langTag, {
+  const time = myDatetime.toLocaleTimeString(langTag, {
     hour: "2-digit",
     minute: "2-digit",
   });
