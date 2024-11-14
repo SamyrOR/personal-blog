@@ -2,12 +2,14 @@
 import type { Page } from "astro";
 import LinkButton from "./LinkButton.astro";
 import type { CollectionEntry } from "astro:content";
+import type { UiType } from "i18n/utils";
 
 export interface Props {
   page: Page<CollectionEntry<"blog">>;
+  lang: UiType;
 }
 
-const { page } = Astro.props;
+const { page, lang } = Astro.props;
 ---
 
 {

@@ -2,15 +2,16 @@
 author: FjellOverflow
 pubDatetime: 2024-07-25T11:11:53Z
 modDatetime: 2024-09-25T12:07:53Z
-title: How to integrate Giscus comments into AstroPaper
-slug: how-to-integrate-giscus-comments
+title: Como integrar o giscus
+slug: como-integrar-giscus
 featured: true
 draft: false
 tags:
   - astro
   - blog
   - docs
-description: Comment function on a static blog hosted on GitHub Pages with Giscus.
+description: Comentarios com giscus
+lang: pt-br
 ---
 
 Hosting a thin static blog on a platform like [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) has numerous advantages, but also takes away some interactivity. Fortunately, [Giscus](https://giscus.app/) exists and offers a way to embed user comments on static sites.

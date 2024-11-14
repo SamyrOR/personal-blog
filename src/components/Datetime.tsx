@@ -1,8 +1,15 @@
 import { LOCALE } from "@config";
+import {
+  getLangFromLocation,
+  getLangFromUrl,
+  useTranslations,
+  type UiType,
+} from "i18n/utils";
 
 interface DatetimesProps {
   pubDatetime: string | Date;
   modDatetime: string | Date | undefined | null;
+  lang: UiType;
 }
 
 interface Props extends DatetimesProps {
@@ -17,7 +24,9 @@ export default function Datetime({
   size = "sm",
   className = "",
   readingTime,
+  lang,
 }: Props) {
+  const t = useTranslations(lang);
   return (
     <div
       className={`flex justify-between space-x-2 opacity-80 ${className}`.trim()}
@@ -34,15 +43,16 @@ export default function Datetime({
         </svg>
         {modDatetime && modDatetime > pubDatetime ? (
           <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
-            Updated:
+            {t("datetime.updated")}
           </span>
         ) : (
-          <span className="sr-only">Published:</span>
+          <span className="sr-only">{t("datetime.published")}</span>
         )}
         <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
           <FormattedDatetime
             pubDatetime={pubDatetime}
             modDatetime={modDatetime}
+            lang={lang}
           />
         </span>
       </div>
@@ -51,18 +61,23 @@ export default function Datetime({
   );
 }
 
-const FormattedDatetime = ({ pubDatetime, modDatetime }: DatetimesProps) => {
+const FormattedDatetime = ({
+  pubDatetime,
+  modDatetime,
+  lang,
+}: DatetimesProps) => {
+  let langTag = lang == "pt-br" ? "pt-BR" : "en-US";
   const myDatetime = new Date(
     modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime
   );
 
-  const date = myDatetime.toLocaleDateString(LOCALE.langTag, {
+  const date = myDatetime.toLocaleDateString(langTag, {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
 
-  const time = myDatetime.toLocaleTimeString(LOCALE.langTag, {
+  const time = myDatetime.toLocaleTimeString(langTag, {
     hour: "2-digit",
     minute: "2-digit",
   });

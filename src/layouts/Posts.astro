@@ -8,27 +8,29 @@ import Card from "@components/Card";
 import { SITE } from "@config";
 import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
+import type { UiType } from "i18n/utils";
 
 export interface Props {
   page: Page<CollectionEntry<"blog">>;
+  lang: UiType;
 }
 
-const { page } = Astro.props;
+const { page, lang } = Astro.props;
 ---
 
 <Layout title={`Posts | ${SITE.title}`}>
-  <Header activeNav="posts" />
-  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
+  <Header activeNav="posts" {lang} />
+  <Main pageTitle="Posts" pageDesc="All the articles I've posted." {lang}>
     <ul>
       {
         page.data.map(({ data, slug }) => (
-          <Card href={`/posts/${slug}/`} frontmatter={data} />
+          <Card href={`/${lang}/posts/${slug}/`} frontmatter={data} {lang} />
         ))
       }
     </ul>
   </Main>
 
-  <Pagination {page} />
+  <Pagination {lang} {page} />
 
-  <Footer noMarginTop={page.lastPage > 1} />
+  <Footer noMarginTop={page.lastPage > 1} {lang} />
 </Layout>

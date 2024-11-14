@@ -2,6 +2,14 @@
 import { LOCALE, SITE } from "@config";
 import "@styles/base.css";
 import { ViewTransitions } from "astro:transitions";
+import {
+  DEFAULT_LANG,
+  getLocalizedPathname,
+  LANGUAGES,
+  pathNameIsInLanguage,
+  useTranslations,
+  type UiType,
+} from "../i18n/utils";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
@@ -15,6 +23,7 @@ export interface Props {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  lang?: UiType;
 }
 
 const {
@@ -23,7 +32,6 @@ const {
   profile = SITE.profile,
   description = SITE.desc,
   ogImage = SITE.ogImage,
-  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
@@ -49,11 +57,26 @@ const structuredData = {
     },
   ],
 };
+
+const canonicalPathname = pathNameIsInLanguage(Astro.url.pathname, DEFAULT_LANG)
+  ? Astro.url.pathname
+  : getLocalizedPathname(Astro.url.pathname, DEFAULT_LANG);
+const canonicalURL = new URL(canonicalPathname, Astro.site);
+const alternateLang = Object.keys(LANGUAGES);
+const alternateLinks = alternateLang.map(_lang => {
+  return {
+    href: new URL(
+      getLocalizedPathname(Astro.url.pathname, _lang as UiType),
+      Astro.site
+    ),
+    hreflang: _lang,
+  };
+});
 ---
 
 <!doctype html>
 <html
-  lang=`${LOCALE.lang ?? "en"}`
+  lang=`${LOCALE.lang ?? "pt-br"}`
   class={`${scrollSmooth && "scroll-smooth"}`}
 >
   <head>
@@ -61,6 +84,12 @@ const structuredData = {
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
+    <!-- Alternate URLs -->
+    {
+      alternateLinks.map(({ href, hreflang }) => (
+        <link rel="alternate" href={href} hreflang={hreflang} />
+      ))
+    }
     <meta name="generator" content={Astro.generator} />
 
     <!-- General Meta Tags -->
