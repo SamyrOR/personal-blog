@@ -34,7 +34,7 @@ const t = useTranslations(lang);
 <Layout title={`Search | ${SITE.title}`}>
   <Header activeNav="search" {lang} />
   <Main pageTitle={t("search.title")} pageDesc="Search any article ..." {lang}>
-    <SearchBar client:only searchList={searchList} {lang} />
+    <SearchBar client:only="react" searchList={searchList} {lang} />
   </Main>
   <Footer {lang} />
 </Layout>

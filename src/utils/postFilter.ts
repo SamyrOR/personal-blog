@@ -1,6 +1,5 @@
 import { SITE } from "@config";
 import type { CollectionEntry } from "astro:content";
-import { getLangFromUrl } from "i18n/utils";
 
 const postFilter = ({ data }: CollectionEntry<"blog">, lang: string) => {
   const isPublishTimePassed =

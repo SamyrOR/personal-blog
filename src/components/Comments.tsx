@@ -14,7 +14,7 @@ export default function Comments({
   darkTheme = "dark",
   lang,
 }: CommentsProps) {
-  let giscusLang = lang == "pt-br" ? "pt" : "en";
+  const giscusLang = lang == "pt-br" ? "pt" : "en";
   const [theme, setTheme] = useState(() => {
     const currentTheme = localStorage.getItem("theme");
     const browserTheme = window.matchMedia("(prefers-color-scheme: dark)")

@@ -3,7 +3,7 @@ import { LOGO_IMAGE, SITE } from "@config";
 import Hr from "./Hr.astro";
 import LinkButton from "./LinkButton.astro";
 import LangSelector from "./LangSelector";
-import { useTranslations } from "i18n/utils";
+import { useTranslations, type UiType } from "i18n/utils";
 
 export interface Props {
   activeNav?: "posts" | "tags" | "about" | "search";
@@ -92,7 +92,7 @@ const t = useTranslations(lang);
                   activeNav === "search" ? "active" : ""
                 } flex`}
                 ariaLabel="search"
-                title={t("site.title")}
+                title={`${SITE.title}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
