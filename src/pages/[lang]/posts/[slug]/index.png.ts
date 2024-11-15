@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   );
 
   let allPosts: any = [];
-  for (let lang of LANGUAGES_KEYS) {
+  for (const lang of LANGUAGES_KEYS) {
     const localizedPosts = posts
       .filter(post => post.data.lang == lang)
       .map(post => ({

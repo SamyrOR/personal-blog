@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { generateOgImageForSite } from "@utils/generateOgImages";
-import { LANGUAGES_KEYS, type UiType } from "../../i18n/utils";
+import { LANGUAGES_KEYS } from "../../i18n/utils";
 
 export async function getStaticPaths() {
   return LANGUAGES_KEYS.map(lang => {

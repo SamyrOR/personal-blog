@@ -64,7 +64,7 @@ function pathNameStartsWithLanguage(pathname: string) {
 export function getLocalizedPathname(pathname: string, lang: UiType) {
   if (pathNameStartsWithLanguage(pathname)) {
     const availableLanguages = Object.keys(LANGUAGES).join("|");
-    const regex = new RegExp(`^\/(${availableLanguages})`);
+    const regex = new RegExp(`^/(${availableLanguages})`);
     return pathname.replace(regex, `/${lang}`);
   }
   return `/${lang}${pathname}`;

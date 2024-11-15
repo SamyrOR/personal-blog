@@ -37,6 +37,7 @@ export default [
     rules: {
       "@typescript-eslint/no-unused-expressions": "off",
       "@typescript-eslint/no-explicit-any": ["warn"],
+      "@typescript-eslint/no-require-imports": "off",
     },
   },
   {

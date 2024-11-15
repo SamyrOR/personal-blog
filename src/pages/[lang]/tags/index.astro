@@ -24,7 +24,7 @@ const { tags } = Astro.props;
 const { lang } = Astro.params;
 ---
 
-<Layout title={`Tags | ${SITE.title}`}>
+<Layout {lang} title={`Tags | ${SITE.title}`}>
   <Header activeNav="tags" {lang} />
   <Main pageTitle="Tags" pageDesc="All the tags used in posts." {lang}>
     <ul>
