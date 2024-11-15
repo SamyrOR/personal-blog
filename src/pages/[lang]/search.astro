@@ -31,7 +31,7 @@ const searchList = sortedPosts.map(({ data, slug }) => ({
 const t = useTranslations(lang);
 ---
 
-<Layout title={`Search | ${SITE.title}`}>
+<Layout {lang} title={`Search | ${SITE.title}`}>
   <Header activeNav="search" {lang} />
   <Main pageTitle={t("search.title")} pageDesc="Search any article ..." {lang}>
     <SearchBar client:only="react" searchList={searchList} {lang} />

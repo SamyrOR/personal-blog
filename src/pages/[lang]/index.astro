@@ -32,7 +32,7 @@ export const getStaticPaths = () =>
 const { lang } = Astro.params;
 ---
 
-<Layout>
+<Layout {lang}>
   <Header lang=`${lang}` />
   <main id="main-content">
     <section id="hero">

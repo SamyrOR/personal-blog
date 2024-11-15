@@ -22,7 +22,7 @@ export interface Props {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
-  lang?: UiType;
+  lang: UiType;
 }
 
 const {
@@ -34,6 +34,7 @@ const {
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
+  lang,
 } = Astro.props;
 
 const socialImageURL = new URL(
@@ -59,7 +60,7 @@ const structuredData = {
 
 const canonicalPathname = pathNameIsInLanguage(Astro.url.pathname, DEFAULT_LANG)
   ? Astro.url.pathname
-  : getLocalizedPathname(Astro.url.pathname, DEFAULT_LANG);
+  : getLocalizedPathname(Astro.url.pathname, lang);
 const canonicalURL = new URL(canonicalPathname, Astro.site);
 const alternateLang = Object.keys(LANGUAGES);
 const alternateLinks = alternateLang.map(_lang => {

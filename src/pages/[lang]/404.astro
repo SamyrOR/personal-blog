@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 ---
 
-<Layout title={`404 Not Found | ${SITE.title}`}>
+<Layout {lang} title={`404 Not Found | ${SITE.title}`}>
   <Header {lang} />
 
   <main id="main-content">

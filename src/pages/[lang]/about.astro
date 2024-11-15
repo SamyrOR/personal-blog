@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 ---
 
-<Layout title={`${SITE.title}`}>
+<Layout {lang} title={`${SITE.title}`}>
   <Header activeNav="about" {lang} />
   <Breadcrumbs {lang} />
   <main id="main-content">
