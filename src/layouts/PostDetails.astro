@@ -35,7 +35,7 @@ const { Content } = await post.render();
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
 const ogUrl = new URL(
-  ogImageUrl ?? `/posts/${slugifyStr(title)}.png`,
+  ogImageUrl ?? `/${lang}/posts/${slugifyStr(title)}.png`,
   Astro.url.origin
 ).href;
 
@@ -65,7 +65,7 @@ const nextPost =
 const t = useTranslations(lang);
 ---
 
-<Layout {...layoutProps}>
+<Layout {lang} {...layoutProps}>
   <Header {lang} />
 
   <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
