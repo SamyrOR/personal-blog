@@ -18,7 +18,7 @@ const t = useTranslations(lang);
   <a id="skip-to-content" href="#main-content">{t("header.skip")}</a>
   <div class="nav-container">
     <div class="top-nav-wrap">
-      <a href="/" class="logo whitespace-nowrap">
+      <a href=`/${lang}/` class="logo whitespace-nowrap">
         {
           LOGO_IMAGE.enable ? (
             <img
@@ -77,10 +77,10 @@ const t = useTranslations(lang);
           </li>
           <li>
             <a
-              href={`/${lang}/about/`}
+              href="https://samyr.dev/projects"
               class={activeNav === "about" ? "active" : ""}
             >
-              {t("header.about")}
+              {t("header.projects")}
             </a>
           </li>
           <li>
