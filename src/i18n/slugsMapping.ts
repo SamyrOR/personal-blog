@@ -8,13 +8,13 @@ type BlogSlugs = {
 export const slugsMapping: BlogSlugs = {
   en: {
     posts: {
-      "como-integrar-giscus": "how-to-integrate-giscus-comments", // Portuguese equivalent slug
+      "minha-primeira-contribuicao": "my-first-contribution", // Portuguese equivalent slug
       // Add more slugs here as needed
     },
   },
   "pt-br": {
     posts: {
-      "how-to-integrate-giscus-comments": "como-integrar-giscus", // Portuguese equivalent slug
+      "my-first-contribution": "minha-primeira-contribuicao", // Portuguese equivalent slug
       // Add more slugs here as needed
     },
   },
