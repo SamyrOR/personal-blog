@@ -2,7 +2,6 @@
 author: SamyrOR
 pubDatetime: 2024-11-15T15:35:53Z
 title: Minha primeira contribuição opensource
-slug: minha-primeira-contribuicao
 featured: true
 draft: false
 tags:

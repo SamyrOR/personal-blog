@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import getSortedPosts from "@utils/getSortedPosts";
 import { SITE } from "@config";
 import { LANGUAGES_KEYS, type UiType } from "../../i18n/utils";
+import { slugifyStr } from "@utils/slugify";
 
 export async function getStaticPaths() {
   return LANGUAGES_KEYS.map(lang => {
@@ -20,8 +21,8 @@ export async function GET({ params }: { params: { lang: UiType } }) {
     title: SITE.title,
     description: SITE.desc,
     site: SITE.website,
-    items: sortedPosts.map(({ data, slug }) => ({
-      link: `/${lang}/posts/${slug}/`,
+    items: sortedPosts.map(({ data }) => ({
+      link: `/${lang}/posts/${slugifyStr(data.title)}/`,
       title: data.title,
       description: data.description,
       pubDate: new Date(data.modDatetime ?? data.pubDatetime),

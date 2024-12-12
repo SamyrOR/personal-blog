@@ -9,6 +9,7 @@ import { SITE } from "@config";
 import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
 import type { UiType } from "i18n/utils";
+import { slugifyStr } from "@utils/slugify";
 
 export interface Props {
   page: Page<CollectionEntry<"blog">>;
@@ -23,8 +24,12 @@ const { page, lang } = Astro.props;
   <Main pageTitle="Posts" pageDesc="All the articles I've posted." {lang}>
     <ul>
       {
-        page.data.map(({ data, slug }) => (
-          <Card href={`/${lang}/posts/${slug}/`} frontmatter={data} {lang} />
+        page.data.map(({ data }) => (
+          <Card
+            href={`/${lang}/posts/${slugifyStr(data.title)}/`}
+            frontmatter={data}
+            {lang}
+          />
         ))
       }
     </ul>

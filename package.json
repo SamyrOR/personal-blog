@@ -1,6 +1,6 @@
 {
   "name": "personal-blog",
-  "version": "4.5.0",
+  "version": "5.0.5",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/rss": "^4.0.9",
+    "@astrojs/rss": "^4.0.10",
     "@giscus/react": "^3.0.0",
     "@resvg/resvg-js": "^2.6.2",
-    "astro": "^4.16.12",
+    "astro": "^5.0.5",
     "fuse.js": "^7.0.0",
     "lodash.kebabcase": "^4.1.1",
     "mdast-util-to-string": "^4.0.0",
@@ -30,13 +30,13 @@
     "typescript": "^5.6.2"
   },
   "devDependencies": {
-    "@astrojs/react": "^3.6.2",
+    "@astrojs/react": "^4.1.0",
     "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.1.2",
+    "@astrojs/tailwind": "^5.1.3",
     "@tailwindcss/typography": "^0.5.15",
     "@types/github-slugger": "^1.3.0",
     "@types/lodash.kebabcase": "^4.1.9",
-    "@types/react": "^18.3.6",
+    "@types/react": "^19.0.1",
     "@typescript-eslint/parser": "^8.5.0",
     "astro-eslint-parser": "^1.0.3",
     "eslint": "^9.10.0",
