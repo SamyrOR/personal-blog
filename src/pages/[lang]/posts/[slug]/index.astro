@@ -13,11 +13,11 @@ export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
 
   const postsWithRT = await getPostsWithRT(posts);
-
+  console.log(postsWithRT[0].id);
   const postResult = postsWithRT.map(post => ({
     params: {
       lang: (post.data.lang as UiType) || DEFAULT_LANG,
-      slug: post.slug,
+      id: post.id,
     },
     props: { post },
   }));

@@ -41,7 +41,7 @@ export default defineConfig({
   },
   scopedStyleStrategy: "where",
   experimental: {
-    contentLayer: true,
+    // contentLayer: true,
   },
   i18n: {
     defaultLocale: "pt-br",
