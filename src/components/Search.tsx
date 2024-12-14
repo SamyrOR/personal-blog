@@ -3,12 +3,12 @@ import { useEffect, useRef, useState, useMemo, type FormEvent } from "react";
 import Card from "@components/Card";
 import type { CollectionEntry } from "astro:content";
 import { getLangFromLocation, useTranslations, type UiType } from "i18n/utils";
+import { slugifyStr } from "@utils/slugify";
 
 export type SearchItem = {
   title: string;
   description: string;
   data: CollectionEntry<"blog">["data"];
-  slug: string;
 };
 
 interface Props {
@@ -113,9 +113,9 @@ export default function SearchBar({ searchList }: Props) {
         {searchResults &&
           searchResults.map(({ item, refIndex }) => (
             <Card
-              href={`/${lang}/posts/${item.slug}/`}
+              href={`/${lang}/posts/${slugifyStr(item.title)}/`}
               frontmatter={item.data}
-              key={`${refIndex}-${item.slug}`}
+              key={`${refIndex}-${slugifyStr(item.title)}`}
               lang={lang}
             />
           ))}

@@ -1,20 +1,22 @@
 type BlogSlugs = {
   [lang: string]: {
     posts: {
-      [slug: string]: string;
+      [id: string]: string;
     };
   };
 };
 export const slugsMapping: BlogSlugs = {
   en: {
     posts: {
-      "minha-primeira-contribuicao": "my-first-contribution", // Portuguese equivalent slug
+      "minha-primeira-contribuicao-opensource":
+        "my-first-open-source-contribution", // Portuguese equivalent slug
       // Add more slugs here as needed
     },
   },
   "pt-br": {
     posts: {
-      "my-first-contribution": "minha-primeira-contribuicao", // Portuguese equivalent slug
+      "my-first-open-source-contribution":
+        "minha-primeira-contribuicao-opensource", // Portuguese equivalent slug
       // Add more slugs here as needed
     },
   },

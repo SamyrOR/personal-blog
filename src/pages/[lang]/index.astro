@@ -14,6 +14,7 @@ import {
   LANGUAGES_KEYS,
   useTranslations,
 } from "../../i18n/utils";
+import { slugifyStr } from "@utils/slugify";
 
 const posts = await getCollection("blog");
 const locale = getLangFromUrl(Astro.url);
@@ -79,9 +80,9 @@ const { lang } = Astro.params;
           <section id="featured">
             <h2>{t("index.featured")}</h2>
             <ul>
-              {featuredPosts.map(({ data, slug }) => (
+              {featuredPosts.map(({ data }) => (
                 <Card
-                  href={`/${lang}/posts/${slug}`}
+                  href={`/${lang}/posts/${slugifyStr(data.title)}`}
                   frontmatter={data}
                   secHeading={false}
                   {lang}
@@ -100,10 +101,10 @@ const { lang } = Astro.params;
           <h2>{t("index.recents")}</h2>
           <ul>
             {recentPosts.map(
-              ({ data, slug }, index) =>
+              ({ data }, index) =>
                 index < SITE.postPerIndex && (
                   <Card
-                    href={`/${lang}/posts/${slug}/`}
+                    href={`/${lang}/posts/${slugifyStr(data.title)}`}
                     frontmatter={data}
                     secHeading={false}
                     {lang}

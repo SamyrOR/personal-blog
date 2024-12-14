@@ -14,7 +14,7 @@ export async function getStaticPaths() {
     const localizedPosts = posts
       .filter(post => post.data.lang == lang)
       .map(post => ({
-        params: { slug: slugifyStr(post.data.title), lang: lang },
+        params: { id: slugifyStr(post.data.title), lang: lang },
         props: post,
       }));
     allPosts = [...allPosts, ...localizedPosts];
