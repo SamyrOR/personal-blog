@@ -1,5 +1,6 @@
 ---
-import { useTranslations, type UiType } from "i18n/utils";
+import { useTranslations } from "i18n";
+import type { UiType } from "i18n/utils";
 import LinkButton from "./LinkButton.astro";
 import socialIcons from "@assets/socialIcons";
 
@@ -47,7 +48,7 @@ const shareLinks = [
 ---
 
 <div class={`social-icons`}>
-  <span class="italic">{t("shareLinks.share")}</span>
+  <span class="italic">{t.post.sharePostIntro}</span>
   <div class="text-center">
     {
       shareLinks.map(social => (
@@ -65,10 +66,14 @@ const shareLinks = [
 </div>
 
 <style>
-  .social-icons {
-    @apply flex flex-col flex-wrap items-center justify-center gap-1 sm:items-start;
-  }
-  .link-button {
-    @apply scale-90 p-2 hover:rotate-6 sm:p-1;
+  @reference "../styles/base.css";
+  /* @layer components: see comment in src/layouts/Main.astro. */
+  @layer components {
+    .social-icons {
+      @apply flex flex-col flex-wrap items-center justify-center gap-1 sm:items-start;
+    }
+    .link-button {
+      @apply scale-90 p-2 hover:rotate-6 sm:p-1;
+    }
   }
 </style>

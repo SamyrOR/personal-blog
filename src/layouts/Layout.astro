@@ -1,14 +1,9 @@
 ---
-import { LOCALE, SITE } from "@config";
+import { SITE } from "@config";
 import "@styles/base.css";
-import { ViewTransitions } from "astro:transitions";
-import {
-  DEFAULT_LANG,
-  getLocalizedPathname,
-  LANGUAGES,
-  pathNameIsInLanguage,
-  type UiType,
-} from "../i18n/utils";
+import { ClientRouter } from "astro:transitions";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { LANGUAGES_KEYS, type UiType } from "../i18n/utils";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
@@ -58,27 +53,19 @@ const structuredData = {
   ],
 };
 
-const canonicalPathname = pathNameIsInLanguage(Astro.url.pathname, DEFAULT_LANG)
-  ? Astro.url.pathname
-  : getLocalizedPathname(Astro.url.pathname, lang);
-const canonicalURL = new URL(canonicalPathname, Astro.site);
-const alternateLang = Object.keys(LANGUAGES);
-const alternateLinks = alternateLang.map(_lang => {
-  return {
-    href: new URL(
-      getLocalizedPathname(Astro.url.pathname, _lang as UiType),
-      Astro.site
-    ),
-    hreflang: _lang,
-  };
-});
+// Path with the current locale prefix stripped, e.g. "/en/posts/foo" -> "posts/foo".
+const restPath = Astro.url.pathname
+  .replace(new RegExp(`^/${lang}/?`), "")
+  .replace(/^\/+/, "");
+const canonicalURL = new URL(getRelativeLocaleUrl(lang, restPath), Astro.site);
+const alternateLinks = LANGUAGES_KEYS.map(_lang => ({
+  href: new URL(getRelativeLocaleUrl(_lang, restPath), Astro.site),
+  hreflang: _lang,
+}));
 ---
 
 <!doctype html>
-<html
-  lang=`${LOCALE.lang ?? "pt-br"}`
-  class={`${scrollSmooth && "scroll-smooth"}`}
->
+<html lang={lang} class={`${scrollSmooth && "scroll-smooth"}`}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -161,7 +148,7 @@ const alternateLinks = alternateLang.map(_lang => {
       )
     }
 
-    <ViewTransitions />
+    <ClientRouter />
 
     <script is:inline src="/toggle-theme.js" async></script>
   </head>

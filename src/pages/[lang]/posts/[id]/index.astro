@@ -7,11 +7,11 @@ import { DEFAULT_LANG, type UiType } from "i18n/utils";
 import { slugifyStr } from "@utils/slugify";
 
 export interface Props {
-  post: CollectionEntry<"blog">;
+  post: CollectionEntry<"posts">;
 }
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
 
   const postsWithRT = await getPostsWithRT(posts);
   const postResult = postsWithRT.map(post => ({
@@ -28,7 +28,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { lang } = Astro.params;
 
-const posts = await getCollection("blog");
+const posts = await getCollection("posts");
 const sortedPosts = getSortedPosts(posts, post.data?.lang || DEFAULT_LANG);
 ---
 

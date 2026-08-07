@@ -5,7 +5,7 @@ import type { UiType } from "i18n/utils";
 
 export interface Props {
   href?: string;
-  frontmatter: CollectionEntry<"blog">["data"];
+  frontmatter: CollectionEntry<"posts">["data"];
   secHeading?: boolean;
   lang: UiType;
 }

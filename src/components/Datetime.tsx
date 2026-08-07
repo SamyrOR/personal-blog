@@ -1,4 +1,5 @@
-import { useTranslations, type UiType } from "i18n/utils";
+import { useTranslations } from "i18n";
+import type { UiType } from "i18n/utils";
 
 interface DatetimesProps {
   pubDatetime: string | Date;
@@ -38,10 +39,10 @@ export default function Datetime({
         </svg>
         {modDatetime && modDatetime > pubDatetime ? (
           <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
-            {t("datetime.updated")}
+            {t.post.updatedAt}
           </span>
         ) : (
-          <span className="sr-only">{t("datetime.published")}</span>
+          <span className="sr-only">{t.post.publishedAt}</span>
         )}
         <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
           <FormattedDatetime

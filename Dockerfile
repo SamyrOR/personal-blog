@@ -1,5 +1,5 @@
 # Base stage for building the static files
-FROM node:lts AS base
+FROM node:22-alpine AS base
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -9,4 +9,5 @@ RUN npm run build
 # Runtime stage for serving the application
 FROM nginx:mainline-alpine-slim AS runtime
 COPY --from=base ./app/dist /usr/share/nginx/html
-EXPOSE 4002
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 2001

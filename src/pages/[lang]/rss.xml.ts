@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
 export async function GET({ params }: { params: { lang: UiType } }) {
   const { lang } = params;
-  const posts = await getCollection("blog");
+  const posts = await getCollection("posts");
   const sortedPosts = getSortedPosts(posts, lang);
   return rss({
     title: SITE.title,
