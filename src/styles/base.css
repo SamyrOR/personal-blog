@@ -1,6 +1,21 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* This project only ever used the "sm" breakpoint; reset the rest. */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 640px;
+
+  --color-skin-fill: rgb(var(--color-fill));
+  --color-skin-accent: rgb(var(--color-accent));
+  --color-skin-base: rgb(var(--color-text-base));
+  --color-skin-inverted: rgb(var(--color-fill));
+  --color-skin-card: rgb(var(--color-card));
+  --color-skin-card-muted: rgb(var(--color-card-muted));
+  --color-skin-line: rgb(var(--color-border));
+
+  --font-mono: "IBM Plex Mono", monospace;
+}
 
 @layer base {
   :root,
@@ -42,7 +57,14 @@
   }
 
   a {
-    @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
+    /*
+     * Tailwind v4 changed outline-width utilities (outline-2) to also set
+     * outline-style: solid by default - previously (v3) they were invisible
+     * without a separate style utility. Move width/offset/color behind
+     * focus-visible: too so the outline is invisible until then, same as
+     * the original v3 behavior.
+     */
+    @apply focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-skin-accent focus-visible:no-underline focus-visible:outline-dashed;
   }
 
   svg {
@@ -54,7 +76,15 @@
   }
 
   .prose {
-    @apply prose-headings:!mb-3 prose-headings:!text-skin-base prose-h3:italic prose-p:!text-skin-base prose-a:!text-skin-base prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-skin-accent prose-blockquote:!border-l-skin-accent/50 prose-blockquote:opacity-80 prose-figcaption:!text-skin-base prose-figcaption:opacity-70 prose-strong:!text-skin-base prose-code:rounded prose-code:bg-skin-card/75 prose-code:p-1 prose-code:before:!content-none prose-code:after:!content-none prose-ol:!text-skin-base prose-ul:overflow-x-clip prose-ul:!text-skin-base prose-li:marker:!text-skin-accent prose-table:text-skin-base prose-th:border prose-th:border-skin-line prose-td:border prose-td:border-skin-line prose-img:!my-2 prose-img:mx-auto prose-img:border-2 prose-img:border-skin-line prose-hr:!border-skin-line;
+    /*
+     * prose-pre:!text-[inherit] / prose-code:!text-[inherit]: the
+     * typography plugin always sets an explicit color on pre/code
+     * (--tw-prose-pre-code / --tw-prose-code). Forcing `inherit` here
+     * (matching the old JS-config `pre: {color: false}` and
+     * `code: {color: false}`) lets Shiki's own inline token colors and
+     * the prose-code:* utilities below actually control color.
+     */
+    @apply prose-headings:!mb-3 prose-headings:!text-skin-base prose-h3:italic prose-p:!text-skin-base prose-a:!text-skin-base prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-skin-accent prose-blockquote:!border-l-skin-accent/50 prose-blockquote:opacity-80 prose-figcaption:!text-skin-base prose-figcaption:opacity-70 prose-strong:!text-skin-base prose-pre:!text-[inherit] prose-code:!text-[inherit] prose-code:rounded prose-code:bg-skin-card/75 prose-code:p-1 prose-code:before:!content-none prose-code:after:!content-none prose-ol:!text-skin-base prose-ul:overflow-x-clip prose-ul:!text-skin-base prose-li:marker:!text-skin-accent prose-table:text-skin-base prose-th:border prose-th:border-skin-line prose-td:border prose-td:border-skin-line prose-img:!my-2 prose-img:mx-auto prose-img:border-2 prose-img:border-skin-line prose-hr:!border-skin-line;
   }
 
   .prose a {
@@ -133,14 +163,18 @@
   }
 }
 
-@layer components {
-  .display-none {
-    @apply hidden;
-  }
+/*
+ * @utility (not @layer components) so these remain valid @apply targets
+ * from other .astro files' scoped <style> blocks via @reference - plain
+ * @layer components classes aren't resolvable Tailwind utility candidates
+ * in v4's per-file @apply model the way they were in v3.
+ */
+@utility display-none {
+  @apply hidden;
+}
 
-  .focus-outline {
-    @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
-  }
+@utility focus-outline {
+  @apply focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-skin-accent focus-visible:no-underline focus-visible:outline-dashed;
 }
 
 .lang-selector option {

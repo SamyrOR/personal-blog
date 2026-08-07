@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import { unified } from "@astrojs/markdown-remark";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
@@ -31,6 +32,7 @@ export default defineConfig({
     },
   },
   vite: {
+    plugins: [tailwindcss()],
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },

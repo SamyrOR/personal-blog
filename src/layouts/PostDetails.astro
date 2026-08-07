@@ -197,35 +197,42 @@ const t = useTranslations(lang);
 </Layout>
 
 <style>
-  main {
-    @apply mx-auto w-full max-w-3xl px-4 pb-12;
-  }
-  .post-title {
-    @apply text-2xl font-semibold text-skin-accent;
+  @reference "../styles/base.css";
+  /* @layer components: see comment in src/layouts/Main.astro. */
+  @layer components {
+    main {
+      @apply mx-auto w-full max-w-3xl px-4 pb-12;
+    }
+    .post-title {
+      @apply text-2xl font-semibold text-skin-accent;
+    }
   }
 </style>
 <style is:global>
   @import "tocbot/dist/tocbot.css";
-  #floating-sidebar {
-    @apply fixed top-28;
-    transform: translateX(0);
-    right: calc(((100% - 52rem) / 2));
-    transform: translateX(100%);
-    width: 18%;
-    #tocbot {
-      .toc-list {
-        position: relative;
-        overflow: hidden;
-      }
-      .toc-list-item {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+  @reference "../styles/base.css";
+  @layer components {
+    #floating-sidebar {
+      @apply fixed top-28;
+      transform: translateX(0);
+      right: calc(((100% - 52rem) / 2));
+      transform: translateX(100%);
+      width: 18%;
+      #tocbot {
+        .toc-list {
+          position: relative;
+          overflow: hidden;
+        }
+        .toc-list-item {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
       }
     }
-  }
-  .is-active-link::before {
-    @apply !bg-skin-accent;
+    .is-active-link::before {
+      @apply !bg-skin-accent;
+    }
   }
 </style>
 
