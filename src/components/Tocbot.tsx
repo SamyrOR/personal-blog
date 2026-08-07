@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import * as tocbot from "tocbot";
+import tocbot from "tocbot";
 
 export default function Tocbot(props: { collapseDepth?: number }) {
   useEffect(() => {
