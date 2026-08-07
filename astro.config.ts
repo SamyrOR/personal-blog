@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
 import react from "@astrojs/react";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
@@ -11,16 +12,18 @@ export default defineConfig({
   site: SITE.website,
   integrations: [react(), sitemap()],
   markdown: {
-    remarkPlugins: [
-      remarkToc,
-      remarkReadingTime,
-      [
-        remarkCollapse,
-        {
-          test: "Table of contents",
-        },
+    processor: unified({
+      remarkPlugins: [
+        remarkToc,
+        remarkReadingTime,
+        [
+          remarkCollapse,
+          {
+            test: "Table of contents",
+          },
+        ],
       ],
-    ],
+    }),
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
