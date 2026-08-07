@@ -10,7 +10,7 @@ import { SITE } from "@config";
 import { LANGUAGES_KEYS } from "i18n/utils";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("posts");
   return LANGUAGES_KEYS.map(lang => {
     let tags = getUniqueTags(posts, lang);
     return {

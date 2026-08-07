@@ -3,7 +3,7 @@ import getSortedPosts from "./getSortedPosts";
 import { slugifyAll } from "./slugify";
 
 const getPostsByTag = (
-  posts: CollectionEntry<"blog">[],
+  posts: CollectionEntry<"posts">[],
   tag: string,
   lang: string
 ) =>

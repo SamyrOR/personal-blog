@@ -1,5 +1,5 @@
 ---
-import { LOCALE, SITE } from "@config";
+import { SITE } from "@config";
 import "@styles/base.css";
 import { ClientRouter } from "astro:transitions";
 import {
@@ -75,10 +75,7 @@ const alternateLinks = alternateLang.map(_lang => {
 ---
 
 <!doctype html>
-<html
-  lang=`${LOCALE.lang ?? "pt-br"}`
-  class={`${scrollSmooth && "scroll-smooth"}`}
->
+<html lang={lang} class={`${scrollSmooth && "scroll-smooth"}`}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />

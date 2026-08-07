@@ -10,7 +10,7 @@ import getSortedPosts from "@utils/getSortedPosts";
 import { getLangFromUrl, LANGUAGES_KEYS, useTranslations } from "i18n/utils";
 
 // Retrieve all published articles
-const posts = await getCollection("blog", ({ data }) => !data.draft);
+const posts = await getCollection("posts", ({ data }) => !data.draft);
 const lang = getLangFromUrl(Astro.url);
 const sortedPosts = getSortedPosts(posts, lang);
 export async function getStaticPaths() {

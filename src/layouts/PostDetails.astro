@@ -14,8 +14,8 @@ import { useTranslations, type UiType } from "i18n/utils";
 import { render } from "astro:content";
 
 export interface Props {
-  post: CollectionEntry<"blog">;
-  posts: CollectionEntry<"blog">[];
+  post: CollectionEntry<"posts">;
+  posts: CollectionEntry<"posts">[];
   lang: UiType;
 }
 

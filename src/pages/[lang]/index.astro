@@ -16,7 +16,7 @@ import {
 } from "../../i18n/utils";
 import { slugifyStr } from "@utils/slugify";
 
-const posts = await getCollection("blog");
+const posts = await getCollection("posts");
 const locale = getLangFromUrl(Astro.url);
 
 const sortedPosts = getSortedPosts(posts, locale);
