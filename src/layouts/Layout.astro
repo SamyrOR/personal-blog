@@ -18,6 +18,12 @@ export interface Props {
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
   lang: UiType;
+  /**
+   * Per-locale relative paths (e.g. "posts/my-slug/") to use for hreflang
+   * alternate links, for pages whose slug differs by locale (translated
+   * posts). Falls back to the current path for any locale not present here.
+   */
+  localizedPaths?: Partial<Record<UiType, string>>;
 }
 
 const {
@@ -30,6 +36,7 @@ const {
   modDatetime,
   scrollSmooth = false,
   lang,
+  localizedPaths,
 } = Astro.props;
 
 const socialImageURL = new URL(
@@ -59,7 +66,10 @@ const restPath = Astro.url.pathname
   .replace(/^\/+/, "");
 const canonicalURL = new URL(getRelativeLocaleUrl(lang, restPath), Astro.site);
 const alternateLinks = LANGUAGES_KEYS.map(_lang => ({
-  href: new URL(getRelativeLocaleUrl(_lang, restPath), Astro.site),
+  href: new URL(
+    getRelativeLocaleUrl(_lang, localizedPaths?.[_lang] ?? restPath),
+    Astro.site
+  ),
   hreflang: _lang,
 }));
 ---

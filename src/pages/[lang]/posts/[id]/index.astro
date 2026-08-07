@@ -3,7 +3,9 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import PostDetails from "@layouts/PostDetails.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import getPostsWithRT from "@utils/getPostsWithRT";
-import { DEFAULT_LANG, type UiType } from "i18n/utils";
+import { resolvePostsForLang } from "@utils/resolvePostsForLang";
+import { getSlugTranslations } from "@utils/getSlugTranslations";
+import { LANGUAGES_KEYS, type UiType } from "i18n/utils";
 import { slugifyStr } from "@utils/slugify";
 
 export interface Props {
@@ -12,24 +14,32 @@ export interface Props {
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
-
   const postsWithRT = await getPostsWithRT(posts);
-  const postResult = postsWithRT.map(post => ({
-    params: {
-      lang: (post.data.lang as UiType) || DEFAULT_LANG,
-      id: slugifyStr(post.data.title),
-    },
-    props: { post },
-  }));
 
-  return postResult;
+  return LANGUAGES_KEYS.flatMap(lang =>
+    resolvePostsForLang(postsWithRT, lang).map(({ post }) => ({
+      params: { lang, id: slugifyStr(post.data.title) },
+      props: { post },
+    }))
+  );
 }
 
 const { post } = Astro.props;
 const { lang } = Astro.params;
 
 const posts = await getCollection("posts");
-const sortedPosts = getSortedPosts(posts, post.data?.lang || DEFAULT_LANG);
+const sortedPosts = getSortedPosts(posts, lang);
+
+const ownSlug = slugifyStr(post.data.title);
+const slugTranslations = await getSlugTranslations();
+const localizedPaths: Partial<Record<UiType, string>> = {
+  [lang as UiType]: `posts/${ownSlug}/`,
+  ...Object.fromEntries(
+    Object.entries(slugTranslations[ownSlug] ?? {}).map(
+      ([siblingLang, siblingSlug]) => [siblingLang, `posts/${siblingSlug}/`]
+    )
+  ),
+};
 ---
 
-<PostDetails post={post} posts={sortedPosts} {lang} />
+<PostDetails post={post} posts={sortedPosts} {lang} {localizedPaths} />

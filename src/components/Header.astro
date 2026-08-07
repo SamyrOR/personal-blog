@@ -5,6 +5,7 @@ import LinkButton from "./LinkButton.astro";
 import LangSelector from "./LangSelector";
 import { useTranslations } from "i18n";
 import type { UiType } from "i18n/utils";
+import { getSlugTranslations } from "@utils/getSlugTranslations";
 
 export interface Props {
   activeNav?: "posts" | "tags" | "about" | "search";
@@ -13,6 +14,7 @@ export interface Props {
 
 const { activeNav, lang } = Astro.props;
 const t = useTranslations(lang);
+const slugTranslations = await getSlugTranslations();
 ---
 
 <header>
@@ -85,7 +87,7 @@ const t = useTranslations(lang);
             </a>
           </li>
           <li>
-            <LangSelector client:only="react" />
+            <LangSelector client:only="react" translations={slugTranslations} />
           </li>
           <li>
             <LinkButton

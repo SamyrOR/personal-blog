@@ -1,16 +1,21 @@
-import { slugsMapping } from "i18n/slugsMapping";
+import type { SlugTranslations } from "@utils/getSlugTranslations";
+import type { UiType } from "i18n/utils";
 
-export default function LangSelector() {
+interface Props {
+  translations: SlugTranslations;
+}
+
+export default function LangSelector({ translations }: Props) {
   const currentLang = window.location.pathname.startsWith("/pt-br")
     ? "pt-br"
     : "en";
 
   const switchLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLang = event.target.value;
+    const newLang = event.target.value as UiType;
     const currentUrl = window.location.pathname;
     const parts = currentUrl.split("/");
     const currentSlug = parts[3];
-    const newSlug = slugsMapping[newLang]?.posts[currentSlug] || currentSlug;
+    const newSlug = translations[currentSlug]?.[newLang] || currentSlug;
     if (parts[1]) {
       parts[1] = newLang;
     }

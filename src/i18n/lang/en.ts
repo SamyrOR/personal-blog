@@ -26,6 +26,8 @@ export default {
     publishedAt: "Published: ",
     updatedAt: "Updated: ",
     sharePostIntro: "Share this post on:",
+    notTranslatedNotice:
+      "This post hasn't been translated yet — showing the original version.",
   },
   footer: {
     allRightsReserved: "All rights reserved.",

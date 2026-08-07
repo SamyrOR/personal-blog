@@ -29,7 +29,7 @@ This is a fork-specific structure, not something adopted from upstream: Astro's 
 - `src/i18n/lang/{en,pt-br}.ts` — one file per locale, each `satisfies UIStrings`.
 - `src/i18n/index.ts` — `useTranslations(lang)`, loads the lang files via `import.meta.glob` and returns the `UIStrings` object directly. Call sites use property access (`t.nav.posts`), not a function call — this is a real API shape (not just a relocation) from the old `t("nav.posts")`-style dotted-string lookup.
 - `src/i18n/utils.ts` — routing-only: `LANGUAGES_KEYS`, `DEFAULT_LANG` (`"pt-br"`), `UiType`.
-- `src/i18n/slugsMapping.ts` — manual mapping between a post's slug in one language and its equivalent slug in another (used by the language switcher on a post page, since translated posts don't share a slug). Astro's i18n APIs have no equivalent of this — it's purely this fork's own content structure.
+- `src/utils/getSlugTranslations.ts` — derives cross-language slug equivalents (used by the language switcher on a post page, since translated posts don't share a slug) from content structure itself: posts sharing a parent directory under `src/content/posts/<topic>/` are treated as translations of each other, so there's no separate mapping file to hand-maintain. Astro's i18n APIs have no equivalent of this — it's purely this fork's own content structure.
 - Astro's built-in `i18n` config (`astro.config.ts`: `defaultLocale: "pt-br"`, `locales: ["en", "pt-br"]`, `routing.prefixDefaultLocale: true`) backs the `astro:i18n` helpers actually used in code (`getRelativeLocaleUrl`, `Astro.currentLocale`) — see `Layout.astro`'s canonical/hreflang generation — but page routing itself is still the manual `[lang]` structure above.
 - `<html lang>` (set in `Layout.astro`) must be the actual per-page `lang`, not a static default — Pagefind's per-language search filtering keys off it.
 
@@ -40,8 +40,8 @@ Blog posts are markdown files under `src/content/posts/<post-slug>/`, one file p
 Post routing derives the `id` param from `slugifyStr(post.data.title)` (see `src/pages/[lang]/posts/[id]/index.astro`), not from the filename — so changing a post's `title` changes its URL.
 
 Key filtering/sorting logic:
-- `src/utils/postFilter.ts` — filters out drafts, posts scheduled in the future (respecting `SITE.scheduledPostMargin`), and posts not matching the current `lang`. Draft/future-dated filtering is skipped in dev mode.
-- `src/utils/getSortedPosts.ts`, `src/utils/getPostsByTag.ts`, `src/utils/getPostsWithRT.ts` (adds reading time), `src/utils/getUniqueTags.ts` — combine with `postFilter` for listing pages.
+- `src/utils/resolvePostsForLang.ts` — the single choke point for "what posts exist in this lang": filters out drafts and posts scheduled in the future (respecting `SITE.scheduledPostMargin`, skipped in dev mode), then resolves one post per topic directory — the post's own translation if `data.lang` matches, otherwise the `DEFAULT_LANG` version as a fallback (`isFallback: true`) instead of the topic silently disappearing from that locale's listings/routes. `src/pages/[lang]/posts/[id]/index.astro`'s `PostDetails` compares `post.data.lang` to the route `lang` to show a "not translated yet" notice on fallback pages.
+- `src/utils/getSortedPosts.ts`, `src/utils/getPostsByTag.ts`, `src/utils/getPostsWithRT.ts` (adds reading time), `src/utils/getUniqueTags.ts` — combine with `resolvePostsForLang` for listing pages. The post detail route (`[id]/index.astro`) and its OG image route (`[id]/index.png.ts`) also call `resolvePostsForLang` directly in `getStaticPaths` so fallback pages get a real URL and OG image, not just a listing entry.
 
 ### OG image generation
 

@@ -1,9 +1,9 @@
 import type { CollectionEntry } from "astro:content";
-import postFilter from "./postFilter";
+import { resolvePostsForLang } from "./resolvePostsForLang";
 
 const getSortedPosts = (posts: CollectionEntry<"posts">[], lang: string) => {
-  return posts
-    .filter(post => postFilter(post, lang))
+  return resolvePostsForLang(posts, lang)
+    .map(({ post }) => post)
     .sort(
       (a, b) =>
         Math.floor(

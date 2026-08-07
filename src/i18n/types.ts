@@ -22,6 +22,7 @@ export interface UIStrings {
     publishedAt: string;
     updatedAt: string;
     sharePostIntro: string;
+    notTranslatedNotice: string;
   };
   footer: {
     allRightsReserved: string;
