@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
@@ -10,13 +9,7 @@ import { remarkReadingTime } from "./src/utils/remark-reading-time.mjs";
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
-  integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
-    react(),
-    sitemap(),
-  ],
+  integrations: [react(), sitemap()],
   markdown: {
     remarkPlugins: [
       remarkToc,
@@ -43,5 +36,8 @@ export default defineConfig({
   i18n: {
     defaultLocale: "pt-br",
     locales: ["en", "pt-br"],
+    routing: {
+      prefixDefaultLocale: true,
+    },
   },
 });
