@@ -1,5 +1,6 @@
 ---
-import { useTranslations, type UiType } from "i18n/utils";
+import { useTranslations } from "i18n";
+import type { UiType } from "i18n/utils";
 import LinkButton from "./LinkButton.astro";
 import socialIcons from "@assets/socialIcons";
 
@@ -47,7 +48,7 @@ const shareLinks = [
 ---
 
 <div class={`social-icons`}>
-  <span class="italic">{t("shareLinks.share")}</span>
+  <span class="italic">{t.post.sharePostIntro}</span>
   <div class="text-center">
     {
       shareLinks.map(social => (

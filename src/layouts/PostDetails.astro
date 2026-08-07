@@ -10,7 +10,8 @@ import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
 import Comments from "@components/Comments";
 import Tocbot from "@components/Tocbot";
-import { useTranslations, type UiType } from "i18n/utils";
+import { useTranslations } from "i18n";
+import type { UiType } from "i18n/utils";
 import { render } from "astro:content";
 
 export interface Props {
@@ -79,7 +80,7 @@ const t = useTranslations(lang);
         ><path
           d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
         ></path>
-      </svg><span>{t("postDetails.back")}</span>
+      </svg><span>{t.post.back}</span>
     </button>
   </div>
   <main id="main-content">
@@ -117,7 +118,7 @@ const t = useTranslations(lang);
             d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
           ></path>
         </svg>
-        <span>{t("postDetails.backTop")}</span>
+        <span>{t.post.backToTop}</span>
       </button>
 
       <ShareLinks {lang} />
@@ -155,7 +156,7 @@ const t = useTranslations(lang);
               </>
             </svg>
             <div>
-              <span>{t("postDetails.previous")}</span>
+              <span>{t.post.previousPost}</span>
               <div class="text-sm text-skin-accent/85">{prevPost.title}</div>
             </div>
           </a>
@@ -168,7 +169,7 @@ const t = useTranslations(lang);
             class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
           >
             <div>
-              <span>{t("postDetails.next")}</span>
+              <span>{t.post.nextPost}</span>
               <div class="text-sm text-skin-accent/85">{nextPost.title}</div>
             </div>
             <svg
